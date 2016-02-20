@@ -4,6 +4,9 @@ set cpo&vim
 let g:rspec_l#rspec_cmd = get(g:, 'rspec_cmd', 'bin/rspec')
 
 
+function! rspec_l#callback(handle, msg) abort
+endfunction
+
 
 function! rspec_l#do() abort
   let fname = expand('%')
@@ -12,9 +15,9 @@ function! rspec_l#do() abort
 
   let handle = ch_open("127.0.0.1:8888", {"mode": "json"})
   let cmd = g:rspec_l#rspec_cmd . " " . arg
-  echom string(cmd)
-  call ch_sendexpr(handle, cmd)
+  call ch_sendexpr(handle, cmd, 'rspec_l#callback')
 endfunction
+
 
 
 
